@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "PFQlRoWCgyiK6tug4eYClywEQ9HPQfa8Qurusuv3fGdV6rJ3ZyDW1L5Vqr7cV7FsAcIwlu/c2WRq/fBt8g9KYg==",
+  "dgSpecHash": "YdGZE69KozKyfLJ7AY/eEp5KR2afsasqilPJu5PVFkZkToO9vYDzA03y8mvVpnoYHB9N0RG5QyOHUXFbuhn2dw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Colin\\source\\repos\\HttpClientDemoApp\\HttpClientDemo\\HttpClientDemo.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Colin\\.nuget\\packages\\system.net.http.json\\5.0.0\\system.net.http.json.5.0.0.nupkg.sha512",
+    "C:\\Users\\Colin\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
