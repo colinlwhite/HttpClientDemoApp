@@ -1,5 +1,32 @@
-﻿<h3>WeatherData</h3>
+﻿@page "/weather"
 
-@code {
+@inject IHttpClientFactory _clientFactory;
+
+<h3>Weather Data</h3>
+
+@code {      
+
+    WeatherForecastModel forecast;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://www.metaweather.com/api/location/2457170/");
+
+        var client = _clientFactory.CreateClient();
+
+        HttpResponseMessage response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            forecast = await response.Content.ReadFromJsonAsync<WeatherForecastModel>();
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting our forecast: { response.ReasonPhrase } ";
+        }
+    }
 
 }
