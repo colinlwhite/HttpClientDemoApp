@@ -21,60 +21,75 @@ using System.Net.Http;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
-using HttpClientDemo;
+using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
+using HttpClientDemo;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
 using HttpClientDemo.Shared;
 
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\_Imports.razor"
+using HttpClientDemo.Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/weather")]
     public partial class WeatherData : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +97,38 @@ using HttpClientDemo.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 7 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\Pages\WeatherData.razor"
+             
+
+    WeatherForecastModel forecast;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://www.metaweather.com/api/location/2457170/");
+
+        var client = _clientFactory.CreateClient();
+
+        HttpResponseMessage response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            forecast = await response.Content.ReadFromJsonAsync<WeatherForecastModel>();
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting our forecast: { response.ReasonPhrase } ";
+        }
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpClientFactory _clientFactory { get; set; }
     }
 }
 #pragma warning restore 1591
