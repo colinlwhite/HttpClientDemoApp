@@ -107,23 +107,27 @@ using HttpClientDemo.Models;
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://www.metaweather.com/api/location/2457170/");
 
-        var client = _clientFactory.CreateClient();
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 63 "C:\Users\Colin\source\repos\HttpClientDemoApp\HttpClientDemo\Pages\WeatherData.razor"
+           
 
-        HttpResponseMessage response = await client.SendAsync(request);
+    var client = _clientFactory.CreateClient("meta");
 
-        if (response.IsSuccessStatusCode)
-        {
-            forecast = await response.Content.ReadFromJsonAsync<WeatherForecastModel>();
-            errorString = null;
-        }
-        else
-        {
-            errorString = $"There was an error getting our forecast: { response.ReasonPhrase } ";
-        }
+    try
+    {
+        forecast = await client.GetFromJsonAsync<WeatherForecastModel>("location/2457170/");
+        errorString = null;
     }
+    catch (Exception ex)
+    {
+        errorString = $"There was an error getting our forecast: { ex.Message } ";
+    }
+
+}
 
 
 #line default

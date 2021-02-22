@@ -30,6 +30,12 @@ namespace HttpClientDemo
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddHttpClient();
+            // Creates a configuration that we can ask for by name
+            // Named HTTP Client
+            services.AddHttpClient("meta", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("MetaAPI"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
